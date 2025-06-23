@@ -58,19 +58,25 @@
   </form>
 
   <script>
-    const form = document.getElementById('clientForm');
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
+document.getElementById('clientForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
 
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const formData = new FormData(this);
+  const data = Object.fromEntries(formData.entries());
 
-      const link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = `${data.firstName}_${data.lastName}_client.json`;
-      link.click();
-    });
-  </script>
+  const response = await fetch('http://73.199.102.68:5000/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+
+  if (response.ok) {
+    alert("Form submitted successfully!");
+  } else {
+    alert("Error submitting form.");
+  }
+});
+</script>
+
 </body>
 </html>
