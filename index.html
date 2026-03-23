@@ -42,10 +42,9 @@
     <label>Gender:
       <select name="gender" required>
         <option value="">Select</option>
-        <option>Male</option>
-        <option>Female</option>
-        <option>Non-binary</option>
-        <option>Other</option>
+        <option value="0">Male</option>
+        <option value="1">Female</option>
+        <option value="2">Unknown</option>
       </select>
     </label>
     <label>Date of Birth:<input type="date" name="dob" required></label>
@@ -53,7 +52,65 @@
     <label>Primary Phone Number:<input type="tel" name="phone" required></label>
     <label>Street Address:<input type="text" name="street" required></label>
     <label>City:<input type="text" name="city" required></label>
-    <label>State:<input type="text" name="state" required></label>
+    <label>State:
+      <select name="state" id="state" required>
+        <option value="">Select</option>
+        <option value="AK">AK - Alaska</option>
+        <option value="AL">AL - Alabama</option>
+        <option value="AR">AR - Arkansas</option>
+        <option value="AZ">AZ - Arizona</option>
+        <option value="CA">CA - California</option>
+        <option value="CO">CO - Colorado</option>
+        <option value="CT">CT - Connecticut</option>
+        <option value="DC">DC - District of Columbia</option>
+        <option value="DE">DE - Delaware</option>
+        <option value="FL">FL - Florida</option>
+        <option value="GA">GA - Georgia</option>
+        <option value="GU">GU - Guam</option>
+        <option value="HI">HI - Hawaii</option>
+        <option value="IA">IA - Iowa</option>
+        <option value="ID">ID - Idaho</option>
+        <option value="IL">IL - Illinois</option>
+        <option value="IN">IN - Indiana</option>
+        <option value="KS">KS - Kansas</option>
+        <option value="KY">KY - Kentucky</option>
+        <option value="LA">LA - Louisiana</option>
+        <option value="MA">MA - Massachusetts</option>
+        <option value="MD">MD - Maryland</option>
+        <option value="ME">ME - Maine</option>
+        <option value="MI">MI - Michigan</option>
+        <option value="MN">MN - Minnesota</option>
+        <option value="MO">MO - Missouri</option>
+        <option value="MS">MS - Mississippi</option>
+        <option value="MT">MT - Montana</option>
+        <option value="NC">NC - North Carolina</option>
+        <option value="ND">ND - North Dakota</option>
+        <option value="NE">NE - Nebraska</option>
+        <option value="NH">NH - New Hampshire</option>
+        <option value="NJ">NJ - New Jersey</option>
+        <option value="NM">NM - New Mexico</option>
+        <option value="NV">NV - Nevada</option>
+        <option value="NY">NY - New York</option>
+        <option value="OH">OH - Ohio</option>
+        <option value="OK">OK - Oklahoma</option>
+        <option value="OR">OR - Oregon</option>
+        <option value="PA">PA - Pennsylvania</option>
+        <option value="PR">PR - Puerto Rico</option>
+        <option value="RI">RI - Rhode Island</option>
+        <option value="SC">SC - South Carolina</option>
+        <option value="SD">SD - South Dakota</option>
+        <option value="TN">TN - Tennessee</option>
+        <option value="TX">TX - Texas</option>
+        <option value="UT">UT - Utah</option>
+        <option value="VA">VA - Virginia</option>
+        <option value="VI">VI - Virgin Islands</option>
+        <option value="VT">VT - Vermont</option>
+        <option value="WA">WA - Washington</option>
+        <option value="WI">WI - Wisconsin</option>
+        <option value="WV">WV - West Virginia</option>
+        <option value="WY">WY - Wyoming</option>
+      </select>
+    </label>
     <label>Zip Code:<input type="text" name="zipcode" required></label>
     <label>Email Address:<input type="email" name="email" required></label>
     <button type="submit">Save Info</button>
@@ -72,7 +129,7 @@ function formatDobForForum(dobValue) {
   }
 
   const [, year, month, day] = isoMatch;
-  return `${month}${day}${year}`;
+  return `${month}/${day}/${year}`;
 }
 
 document.getElementById('clientForm').addEventListener('submit', async function (e) {
@@ -88,7 +145,7 @@ document.getElementById('clientForm').addEventListener('submit', async function 
     data.dobIso = data.dob;
     data.birthDate = formatDobForForum(data.dob);
 
-    const response = await fetch('https://0f30-73-178-28-164.ngrok-free.app/submit', {
+    const response = await fetch('https://522a-73-178-28-164.ngrok-free.app/submit', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
